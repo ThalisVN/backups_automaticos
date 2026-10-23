@@ -71,12 +71,17 @@ barra_progresso() {
 # ============================================================
 
 # Pasta(s) de origem (o que você quer fazer backup)
+
+# Realiza um teste de existencia das pastas, agora mapeadas de acordo com a identidade criada pelo sistema (pacote xdg-user-dir), o comando depois do :- fica como fallback caso o primeiro nao funcione
+test -f "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs" && \
+    source "${XDG_CONFIG_HOME:-$HOME/.config}/user-dirs.dirs"
+
 ORIGENS=(
-    "/home/$USER/Documentos"
-    "/home/$USER/Downloads"
-    "/home/$USER/Músicas"
-    "/home/$USER/Imagens"
-    "/home/$USER/Vídeos"
+    "${XDG_DOCUMENTS_DIR:-$HOME/Documentos}"
+    "${XDG_DOWNLOAD_DIR:-$HOME/Downloads}"
+    "${XDG_MUSIC_DIR:-$HOME/Músicas}"
+    "${XDG_PICTURES_DIR:-$HOME/Imagens}"
+    "${XDG_VIDEOS_DIR:-$HOME/Vídeos}"
 )
 
 # HD_DESTINO e PASTA_BACKUPS são definidos pela função escolher_hd
